@@ -1,13 +1,36 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { DarkModeToggle } from '@/components/ui/DarkModeToggle';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [authenticated, setAuthenticated] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  const isLoginPage = pathname === '/admin/login';
+
+  useEffect(() => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('lfr_admin_token') : null;
+    
+    if (!token && !isLoginPage) {
+      router.push('/admin/login');
+    } else {
+      setAuthenticated(!!token);
+    }
+    setCheckingAuth(false);
+  }, [pathname, isLoginPage, router]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('lfr_admin_token');
+    localStorage.removeItem('lfr_admin_user');
+    setAuthenticated(false);
+    router.push('/admin/login');
+  };
 
   const navItems = [
     { label: 'Dashboard', href: '/admin' },
@@ -15,6 +38,34 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { label: 'Create New Job', href: '/admin/posts/create' },
     { label: 'Categories', href: '/admin/categories' },
   ];
+
+  // While checking auth on non-login pages, render minimal spinner
+  if (checkingAuth && !isLoginPage) {
+    return (
+      <div className="min-h-screen bg-[var(--bg-main)] flex items-center justify-center text-xs text-[var(--text-muted)]">
+        Checking authentication...
+      </div>
+    );
+  }
+
+  // Login page layout (standalone without dashboard navbar)
+  if (isLoginPage) {
+    return (
+      <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] flex flex-col justify-between">
+        <header className="h-16 border-b border-[var(--border-color)] bg-[var(--bg-card)] flex items-center justify-between px-6">
+          <Link href="/" className="flex items-center gap-2.5">
+            <Image src="/logo.jpg" alt="LearnForRise Logo" width={32} height={32} className="w-8 h-8 rounded-full object-cover" />
+            <span className="font-heading font-bold text-base text-[var(--text-main)]">LearnForRise</span>
+          </Link>
+          <DarkModeToggle />
+        </header>
+        <main className="flex-1 flex items-center justify-center p-4">{children}</main>
+        <footer className="border-t border-[var(--border-color)] py-4 text-center text-xs text-[var(--text-muted)]">
+          LearnForRise Secure Admin Gateway
+        </footer>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-main)] transition-colors flex flex-col">
@@ -35,7 +86,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 LearnForRise <span className="text-[#0F9D6E] dark:text-[#10B981]">Admin</span>
               </span>
               <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                Portal v1.0
+                Secured
               </span>
             </div>
           </Link>
@@ -50,6 +101,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <span>View Website</span>
               <span>↗</span>
             </Link>
+            
+            <button
+              onClick={handleLogout}
+              className="px-3 py-1.5 rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20 text-xs font-semibold hover:bg-red-500/20 transition-colors"
+            >
+              Logout
+            </button>
+
             <DarkModeToggle />
           </div>
         </div>
@@ -89,7 +148,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Admin Footer */}
       <footer className="border-t border-[var(--border-color)] bg-[var(--bg-card)] py-4 text-center text-xs text-[var(--text-muted)]">
-        LearnForRise Admin Portal • Built with Next.js App Router
+        LearnForRise Admin Portal • Protected Area
       </footer>
     </div>
   );

@@ -1,70 +1,84 @@
 # LearnForRise
 
-**LearnForRise** is India's premier minimal, clean, and fast government job & result information portal. It provides real-time notifications for **Latest Jobs**, **Exam Results**, **Admit Cards**, **Syllabus**, **Answer Keys**, and **College Admissions** across India without popup ads, slow loading, or cluttered interfaces.
+LearnForRise is a web platform for accessing Indian government job updates, exam results, admit cards, syllabus details, answer keys, and university admissions. It provides a clean, fast interface without third-party popups or ad clutter.
 
 ---
 
-## 🚀 Key Features
+## Core Capabilities
 
-- **Minimal & Premium UI**: Built with Next.js App Router, Tailwind CSS, Framer Motion, and Lucide Icons.
-- **Zero Popup Ads**: 100% focused on candidate preparation and fast information delivery.
-- **Dynamic Next.js Admin Panel**: Full-featured `/admin` portal for managing notifications, categories, important dates, and official links.
-- **Verified Official Links**: Direct access to verified government portal links (.gov.in, .nic.in).
-- **Dark Mode Support**: Seamless toggle between light and dark themes.
-- **SEO & Structured Data**: Built-in JobPosting schema markup, meta tags, and sitemaps.
-
----
-
-## 🛠️ Tech Stack
-
-- **Frontend**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS, Framer Motion
-- **Backend**: Node.js, Express.js, MongoDB (with fallback offline storage)
-- **Scraper Utility**: Automated scraper for fetching & sanitizing notifications
+- Public Job Portal: Browse notifications sorted by categories including Latest Jobs, Result, Admit Card, Syllabus, Answer Key, and Admission.
+- Search and Filtering: Filter updates by qualification, region, and department.
+- Protected Admin Dashboard: A dedicated dashboard at /admin to create, edit, delete, and organize notifications and categories.
+- Data Security and Authentication: Admin routes require authentication to prevent unauthorized modifications.
+- Dark and Light Themes: Integrated theme switcher for comfortable reading in any environment.
+- Automated Scraper and Local Fallback: Scrapes public domain updates and maintains local fallback JSON storage when database connections are unavailable.
 
 ---
 
-## 📦 Project Structure
+## Technical Stack
+
+- Frontend: Next.js (App Router), React, TypeScript, Tailwind CSS
+- Backend: Node.js, Express.js, MongoDB (with JSON fallback storage)
+- Authentication: Session token authentication for admin operations
+
+---
+
+## Repository Organization
 
 ```
 LearnForRise/
-├── frontend/             # Next.js App Router Application
-│   ├── app/              # Main site routes & /admin portal
-│   ├── components/       # UI components (Header, Footer, PostCard, Admin)
-│   ├── lib/              # API Client & utilities
+├── frontend/             # Next.js frontend application
+│   ├── app/              # Main site pages and /admin dashboard
+│   ├── components/       # Reusable layout and post components
+│   ├── lib/              # API helpers and utils
 │   └── types/            # TypeScript type definitions
-├── server/               # Node.js + Express REST API
+├── server/               # Express REST API backend
 │   ├── config/           # Database configuration
-│   ├── controllers/      # Posts & Categories controllers
-│   ├── data/             # Fallback JSON datasets
+│   ├── controllers/      # Route controllers for posts and categories
+│   ├── data/             # Local fallback data storage
 │   ├── models/           # Mongoose schemas
-│   ├── routes/           # REST API routes
+│   ├── routes/           # Express API endpoints
 │   └── scripts/          # Scraping scripts
 └── README.md
 ```
 
 ---
 
-## ⚡ Quick Start
+## Local Development Setup
 
-### 1. Backend Server
+### 1. Start the API Server
+
 ```bash
 cd server
 npm install
 npm run dev
 ```
 
-### 2. Frontend Application
+The Express API will run on http://localhost:5000.
+
+### 2. Start the Frontend Application
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Visit `http://localhost:3000` in your browser.
-Visit `http://localhost:3000/admin` to access the Admin Panel.
+The Next.js application will run on http://localhost:3000.
 
 ---
 
-## 📜 License
+## Admin Access
+
+To manage job listings and portal categories:
+
+1. Open http://localhost:3000/admin in your web browser.
+2. Log in using your administrator credentials.
+   - Default Username: admin
+   - Default Password: admin12345
+
+---
+
+## License
 
 Distributed under the MIT License.

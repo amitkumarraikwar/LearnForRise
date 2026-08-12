@@ -1,0 +1,235 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-main: #FAFAF9;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #F4F4F5;
+    --text-main: #111114;
+    --text-muted: #6B6B76;
+    --border-color: #E5E5E8;
+    --accent-primary: #0F9D6E;
+    --accent-primary-hover: #0D8960;
+    --accent-secondary: #F5A623;
+    --accent-secondary-hover: #DE931D;
+    --success: #16A34A;
+    --alert: #DC2626;
+    --glass-bg: rgba(250, 250, 249, 0.85);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .dark {
+    --bg-main: #0B0B0F;
+    --bg-card: #141419;
+    --bg-card-hover: #1C1C24;
+    --text-main: #F4F4F6;
+    --text-muted: #9494A0;
+    --border-color: #272730;
+    --accent-primary: #10B981;
+    --accent-primary-hover: #059669;
+    --accent-secondary: #F5A623;
+    --accent-secondary-hover: #DE931D;
+    --success: #22C55E;
+    --alert: #EF4444;
+    --glass-bg: rgba(11, 11, 15, 0.85);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.5);
+  }
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-space-grotesk), var(--font-inter), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 9999px;
+}
+
+/* Hide broken or un-styled images inside prose content */
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin: 1rem 0;
+}
+.prose img[src*="learnforrise.com/wp-content"],
+.prose img[src*="sarkariresult"] {
+  display: none !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   GLOBAL PROSE & SCRAPED CONTENT HIGH CONTRAST COLOR OVERRIDES
+───────────────────────────────────────────────────────────────────────────── */
+
+/* Force all text inside .prose to adapt to current theme's --text-main */
+.prose,
+.prose *,
+.prose p,
+.prose span,
+.prose div,
+.prose li,
+.prose td,
+.prose th,
+.prose tr,
+.prose strong,
+.prose b,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: var(--text-main) !important;
+}
+
+/* Override all inline style="color: ..." attributes */
+.prose [style*="color"] {
+  color: var(--text-main) !important;
+}
+
+/* Links inside .prose */
+.prose a,
+.prose a *,
+.prose a[style*="color"] {
+  color: var(--accent-primary) !important;
+  text-decoration: underline !important;
+  font-weight: 500 !important;
+}
+
+.prose a:hover {
+  opacity: 0.85;
+}
+
+/* Tables inside .prose */
+.prose table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 1.25rem 0 !important;
+  border-radius: 0.75rem !important;
+  overflow: hidden !important;
+  border: 1px solid var(--border-color) !important;
+  background-color: var(--bg-card) !important;
+}
+
+.prose th, 
+.prose td {
+  padding: 0.75rem 1rem !important;
+  border: 1px solid var(--border-color) !important;
+  font-size: 0.875rem !important;
+  background-color: transparent !important;
+  color: var(--text-main) !important;
+}
+
+.prose th {
+  background-color: var(--bg-card-hover) !important;
+  font-weight: 700 !important;
+  color: var(--text-main) !important;
+}
+
+/* Override inline background colors (e.g. #fff091, #000080, #ffffff) */
+.prose [style*="background-color"],
+.prose [style*="background"] {
+  background-color: var(--bg-card) !important;
+  color: var(--text-main) !important;
+}
+
+/* GeneratePress / WordPress Container & Grid Formatting */
+.prose .gb-grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+@media (min-width: 640px) {
+  .prose .gb-grid-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.prose .gb-container {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 1rem !important;
+  padding: 1.25rem !important;
+  margin-top: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.prose .gb-headline {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main) !important;
+}
+.prose .gb-headline h2, .prose h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main) !important;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.prose .gb-headline h3, .prose h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--accent-primary) !important;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+.prose .gb-headline h4, .prose h4, .prose h5, .prose h6 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main) !important;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.prose li {
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-main) !important;
+}
+
+/* Custom CTA buttons inside content */
+.prose .apply-button {
+  display: inline-block;
+  background-color: var(--accent-primary) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.75rem;
+  text-decoration: none !important;
+  margin: 0.75rem 0;
+  box-shadow: var(--shadow-sm);
+  transition: opacity 0.2s ease;
+}
+.prose .apply-button:hover {
+  opacity: 0.9;
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "_id": "cat-1",
+    "slug": "latest-jobs",
+    "name": "Latest Jobs",
+    "description": "Government job vacancies & recruitment notifications",
+    "icon": "briefcase",
+    "order": 1,
+    "isBuiltIn": true
+  },
+  {
+    "_id": "cat-2",
+    "slug": "result",
+    "name": "Result",
+    "description": "Exam results, merit lists & cut off marks",
+    "icon": "trophy",
+    "order": 2,
+    "isBuiltIn": true
+  },
+  {
+    "_id": "cat-3",
+    "slug": "admit-card",
+    "name": "Admit Card",
+    "description": "Exam hall tickets & city intimation details",
+    "icon": "id-card",
+    "order": 3,
+    "isBuiltIn": true
+  },
+  {
+    "_id": "cat-4",
+    "slug": "syllabus",
+    "name": "Syllabus",
+    "description": "Detailed exam syllabus & pattern PDFs",
+    "icon": "book",
+    "order": 4,
+    "isBuiltIn": true
+  },
+  {
+    "_id": "cat-5",
+    "slug": "answer-key",
+    "name": "Answer Key",
+    "description": "Official answer keys & objection links",
+    "icon": "key",
+    "order": 5,
+    "isBuiltIn": true
+  },
+  {
+    "_id": "cat-6",
+    "slug": "admission",
+    "name": "Admission",
+    "description": "University, college & entrance exam admissions",
+    "icon": "graduation-cap",
+    "order": 6,
+    "isBuiltIn": true
+  }
+]
